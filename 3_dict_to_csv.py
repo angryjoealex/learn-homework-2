@@ -30,16 +30,10 @@ def main():
             if key not in headers:
                 headers.append(key)
     with open(file_w_path, mode="w+", encoding='utf-8') as file:
-        file_writer = csv.writer(file, delimiter=",", lineterminator="\r")
-        file_writer.writerow(headers)
+        file_writer = csv.DictWriter(file, headers, delimiter=",", lineterminator="\r" )
+        file_writer.writeheader()
         for row in employees:
-            write_string = []
-            for key in headers:
-                try:
-                    write_string.append(row[key])
-                except KeyError:
-                    pass
-            file_writer.writerow(write_string)
+            file_writer.writerow(row)
 
 
 if __name__ == "__main__":
