@@ -10,30 +10,28 @@
 
 """
 import csv
+import pathlib
+from pathlib import Path
 
 employees = [
     {'name': 'John', 'age': '35', 'job': 'accountant'},
     {'name': 'Maty', 'age': '30', 'job': 'assitant'},
     {'name': 'Bill', 'age': '40', 'job': 'SEO'},
-    {'name': 'Rajesh', 'age': '37', 'job': 'technical support', 'note': 'very lazy'},
+    {'name': 'Rajesh', 'age': '37', 'job': 'technical support'},
 ]
 
-path_to_file = '/Users/apetrov/Downloads/'
+path_to_file = pathlib.Path.cwd()
 out_file = 'employees.csv'
 
 
 def main():
-    file_w_path = path_to_file + out_file
-    headers = []
-    for row in employees:
-        for key in row:
-            if key not in headers:
-                headers.append(key)
+    file_w_path = Path(path_to_file, out_file)
+    print(file_w_path)
+    headers = employees[0].keys()
     with open(file_w_path, mode="w+", encoding='utf-8') as file:
         file_writer = csv.DictWriter(file, headers, delimiter=",", lineterminator="\r" )
         file_writer.writeheader()
-        for row in employees:
-            file_writer.writerow(row)
+        file_writer.writerows(employees)
 
 
 if __name__ == "__main__":

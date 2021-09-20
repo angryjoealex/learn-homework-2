@@ -10,14 +10,16 @@
 4. Замените точки в тексте на восклицательные знаки
 5. Сохраните результат в файл referat2.txt
 """
-path_to_file = '/Users/apetrov/Downloads/'
+import pathlib
+from pathlib import Path
+path_to_file = pathlib.Path.cwd()
 in_file = 'referat.txt'
 out_file = 'referat2.txt'
 
 
 def main():
-    input_file_with_path = path_to_file + in_file
-    output_file_with_path = path_to_file + out_file
+    input_file_with_path = Path(path_to_file, in_file)
+    output_file_with_path = Path(path_to_file, out_file)
     with open(input_file_with_path) as file:
         file_content = file.read()
     text_len = len(file_content)
